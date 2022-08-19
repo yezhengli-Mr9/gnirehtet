@@ -221,6 +221,10 @@ public class TCPHeader implements TransportHeader {
         setChecksum((short) ~sum);
     }
 
+    @Override
+    public void computeChecksum(IPv6Header ipv6Header, ByteBuffer payload) {
+    }
+
     private void setChecksum(short checksum) {
         raw.putShort(16, checksum);
     }
@@ -228,4 +232,7 @@ public class TCPHeader implements TransportHeader {
     public short getChecksum() {
         return raw.getShort(16);
     }
+
+
+
 }

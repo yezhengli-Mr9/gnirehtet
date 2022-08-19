@@ -16,33 +16,26 @@
 
 package com.genymobile.gnirehtet.relay;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.nio.ByteBuffer;
 
-public interface TransportHeader {
+@SuppressWarnings("checkstyle:MagicNumber")
+public class IPv6PacketTest {
 
-    int getSourcePort();
+    private static ByteBuffer createMockPacket() {
+        // TODO
+        return null;
+    }
 
-    int getDestinationPort();
+    @Test
+    public void testParseHeaders() {
+        // TODO
+    }
 
-    void setSourcePort(int port);
-
-    void setDestinationPort(int port);
-
-    int getHeaderLength();
-
-    void setPayloadLength(int payloadLength);
-
-    ByteBuffer getRaw();
-
-    TransportHeader copyTo(ByteBuffer buffer);
-
-    void computeChecksum(IPv4Header ipv4Header, ByteBuffer payload);
-
-    void computeChecksum(IPv6Header ipv6Header, ByteBuffer payload);
-
-    default void swapSourceAndDestination() {
-        int tmp = getSourcePort();
-        setSourcePort(getDestinationPort());
-        setDestinationPort(tmp);
+    @Test
+    public void testPayload() {
+        // TODO
     }
 }
