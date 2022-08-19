@@ -36,9 +36,18 @@ public class Packetizer {
         responseTransportHeader = transportHeader.copyTo(buffer);
         payloadBuffer = buffer.slice();
     }
+    public Packetizer(IPv6Header ipv6Header, TransportHeader transportHeader) {
+        // TODO
+        responseIPv4Header = null;
+        responseTransportHeader = null;
+        payloadBuffer = null;
+    }
 
     public IPv4Header getResponseIPv4Header() {
         return responseIPv4Header;
+    }
+    public IPv6Header getResponseIPv6Header() {
+        return null;
     }
 
     public TransportHeader getResponseTransportHeader() {
@@ -48,6 +57,11 @@ public class Packetizer {
     public IPv4Packet packetizeEmptyPayload() {
         payloadBuffer.limit(0).position(0);
         return inflate();
+    }
+
+    public IPv6Packet packetizeEmptyPayloadIpv6() {
+        // TODO
+        return null;
     }
 
     public IPv4Packet packetize(ReadableByteChannel channel, int maxChunkSize) throws IOException {
@@ -60,8 +74,18 @@ public class Packetizer {
         return inflate();
     }
 
+    public IPv6Packet packetizeIpv6(ReadableByteChannel channel, int maxChunkSize) throws IOException {
+        // TODO
+        return null;
+    }
+
     public IPv4Packet packetize(ReadableByteChannel channel) throws IOException {
         return packetize(channel, payloadBuffer.capacity());
+    }
+
+    public IPv6Packet packetizeIpv6(ReadableByteChannel channel) throws IOException {
+        // TODO
+        return null;
     }
 
     private IPv4Packet inflate() {
@@ -80,5 +104,9 @@ public class Packetizer {
         IPv4Packet packet = new IPv4Packet(buffer);
         packet.computeChecksums();
         return packet;
+    }
+    private IPv6Packet inflateIpv6() {
+        // TODO
+        return null;
     }
 }

@@ -53,17 +53,16 @@ public class IPv6Header {
 	public IPv6Header(ByteBuffer raw) {
 		// TODO
 	}
-	//*
+	
 	public boolean isSupported() {
 		// TODO
         return version == 6 && protocol != Protocol.OTHER;
     }
-	//*/
+	
     public Protocol getProtocol() {
     	// TODO
         return null;
     }
-    //*/
 
     public int getHeaderLength() {
         return headerLength;

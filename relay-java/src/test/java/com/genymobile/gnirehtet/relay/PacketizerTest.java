@@ -103,4 +103,19 @@ public class PacketizerTest {
         Assert.assertEquals(0x77, packetPayload.get());
         Assert.assertEquals((byte) 0x88, packetPayload.get());
     }
+
+    private static ByteBuffer createMockPacketIpv6() {
+        // TODO
+        return null;
+    }
+
+    @Test
+    public void testMergeHeadersAndPayloadIpv6() throws IOException {
+        // TODO
+    }
+
+    @Test
+    public void testPacketizeChunksIpv6() throws IOException {
+        // TODO
+    }
 }
