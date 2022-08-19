@@ -258,4 +258,50 @@ public class TCPHeaderTest {
         long duration = System.currentTimeMillis() - start;
         System.out.println("5000000 TCP checksums: " + duration + "ms");
     }
+
+    private static ByteBuffer createMockPacketIpv6() {
+        // TODO
+        return null;
+    }
+
+    private static ByteBuffer createMockOddPacketIpv6() {
+        // TODO
+        return null;
+    }
+
+    private static ByteBuffer createMockTCPHeaderIpv6() {
+        // TODO
+        return null;
+    }
+
+    @Test
+    public void testEditHeadersIpv6() {
+        // TODO
+    }
+
+    @Test
+    public void testComputeChecksumIpv6() {
+        // TODO
+    }
+
+    @Test
+    public void testComputeChecksumOddLengthIpv6() {
+        // TODO
+    }
+
+    @Test
+    public void testCopyToIpv6() {
+        // TODO
+    }
+
+    private static ByteBuffer createLongPacketIpv6() {
+        // TODO
+        return null;
+    }
+
+    @Ignore // manual benchmark
+    @Test
+    public void benchComputeChecksumIpv6() {
+        // TODO
+    }
 }

@@ -20,6 +20,7 @@ public interface Connection {
 
     ConnectionId getId();
     void sendToNetwork(IPv4Packet packet);
+    void sendToNetwork(IPv6Packet packet);
     void disconnect();
     boolean isExpired();
 }

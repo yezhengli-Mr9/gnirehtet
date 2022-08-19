@@ -90,4 +90,24 @@ public class UDPHeaderTest {
         Assert.assertEquals("Header must modify target", 9999, target.getShort(12));
         Assert.assertEquals("Header must not modify buffer", 1234, buffer.getShort(0));
     }
+
+    private static ByteBuffer createMockHeadersIpv6() {
+        // TODO
+        return null;
+    }
+
+    @Test
+    public void testParsePacketHeadersIpv6() {
+        // TODO
+    }
+
+    @Test
+    public void testEditHeadersIpv6() {
+        // TODO
+    }
+
+    @Test
+    public void testCopyToIpv6() {
+        // TODO
+    }
 }

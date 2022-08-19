@@ -27,7 +27,7 @@ public class UDPConnection extends AbstractConnection {
 
     private static final String TAG = UDPConnection.class.getSimpleName();
 
-    private final DatagramBuffer clientToNetwork = new DatagramBuffer(4 * IPv4Packet.MAX_PACKET_LENGTH);
+    private final DatagramBuffer clientToNetwork;
     private final Packetizer networkToClient;
 
     private final DatagramChannel channel;
@@ -42,6 +42,7 @@ public class UDPConnection extends AbstractConnection {
         networkToClient = new Packetizer(ipv4Header, udpHeader);
         networkToClient.getResponseIPv4Header().swapSourceAndDestination();
         networkToClient.getResponseTransportHeader().swapSourceAndDestination();
+        clientToNetwork = new DatagramBuffer(4 * IPv4Packet.MAX_PACKET_LENGTH);
 
         touch();
 
@@ -60,6 +61,15 @@ public class UDPConnection extends AbstractConnection {
         selectionKey = channel.register(selector, interests, selectionHandler);
     }
 
+    public UDPConnection(ConnectionId id, Client client, Selector selector, IPv6Header ipv6Header, UDPHeader udpHeader) throws IOException {
+        super(id, client);
+        // TODO
+        networkToClient = new Packetizer(ipv6Header, udpHeader);
+        clientToNetwork = new DatagramBuffer(4 * IPv6Packet.MAX_PACKET_LENGTH);
+        channel = null;
+        selectionKey = null;
+    }
+
     @Override
     public void sendToNetwork(IPv4Packet packet) {
         if (!clientToNetwork.readFrom(packet.getPayload())) {
@@ -67,6 +77,11 @@ public class UDPConnection extends AbstractConnection {
             return;
         }
         updateInterests();
+    }
+
+    @Override
+    public void sendToNetwork(IPv6Packet packet) {
+        // TODO
     }
 
     @Override
@@ -121,6 +136,16 @@ public class UDPConnection extends AbstractConnection {
         }
     }
 
+    private IPv6Packet readIpv6() {
+        // TODO
+        try {
+            return networkToClient.packetizeIpv6(channel);
+        } catch (IOException e) {
+            loge(TAG, "Cannot read", e);
+            return null;
+        }
+    }
+
     private boolean write() {
         try {
             return clientToNetwork.writeTo(channel);
@@ -129,6 +154,18 @@ public class UDPConnection extends AbstractConnection {
             return false;
         }
     }
+
+    private boolean writeIpv6() {
+        // TODO
+        try {
+            return clientToNetwork.writeTo(channel);
+        } catch (IOException e) {
+            loge(TAG, "Cannot write", e);
+            return false;
+        }
+    }
+
+
 
     private void pushToClient(IPv4Packet packet) {
         if (!sendToClient(packet)) {
@@ -139,6 +176,10 @@ public class UDPConnection extends AbstractConnection {
         if (Log.isVerboseEnabled()) {
             logv(TAG, Binary.buildPacketString(packet.getRaw()));
         }
+    }
+
+    private void pushToClient(IPv6Packet packet) {
+        // TODO
     }
 
     protected void updateInterests() {

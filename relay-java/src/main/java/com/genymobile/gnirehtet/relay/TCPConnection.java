@@ -101,6 +101,15 @@ public class TCPConnection extends AbstractConnection implements PacketSource {
         selectionKey = channel.register(selector, interests, selectionHandler);
     }
 
+    public TCPConnection(ConnectionId id, Client client, Selector selector, IPv6Header ipv6Header, TCPHeader tcpHeader) throws IOException {
+        super(id, client);
+        // TODO
+        networkToClient = null;
+        channel = null;
+        selectionKey = null;
+
+    }
+
     @Override
     public void disconnect() {
         logi(TAG, "Close");
@@ -206,6 +215,11 @@ public class TCPConnection extends AbstractConnection implements PacketSource {
         updateInterests();
     }
 
+    @Override
+    public void sendToNetwork(IPv6Packet packet) {
+        // TODO
+    }
+
     private void handlePacket(IPv4Packet packet) {
         TCPHeader tcpHeader = (TCPHeader) packet.getTransportHeader();
         if (state == null) {
@@ -255,6 +269,10 @@ public class TCPConnection extends AbstractConnection implements PacketSource {
         }
     }
 
+    private void handlePacket(IPv6Packet packet) {
+        // TODO
+    }
+
     private void handleFirstPacket(IPv4Packet packet) {
         logd(TAG, "handleFirstPacket()");
         TCPHeader tcpHeader = (TCPHeader) packet.getTransportHeader();
@@ -277,6 +295,10 @@ public class TCPConnection extends AbstractConnection implements PacketSource {
         logd(TAG, "State = " + state);
     }
 
+    private void handleFirstPacket(IPv6Packet packet) {
+        // TODO
+    }
+
     private void handleDuplicateSyn(IPv4Packet packet) {
         TCPHeader tcpHeader = (TCPHeader) packet.getTransportHeader();
         int theirSequenceNumber = tcpHeader.getSequenceNumber();
@@ -289,6 +311,11 @@ public class TCPConnection extends AbstractConnection implements PacketSource {
             resetConnection();
         }
     }
+
+    private void handleDuplicateSyn(IPv6Packet packet) {
+        // TODO
+    }
+
 
     private void handleFin() {
         logd(TAG, "Received a FIN from the client " + numbers());
@@ -369,6 +396,9 @@ public class TCPConnection extends AbstractConnection implements PacketSource {
 
         clientToNetwork.readFrom(packet.getPayload());
         // data will be ACKed once written to the network socket
+    }
+
+    private void handleAck(IPv6Packet packet) {
     }
 
     private void processConnect() {
@@ -466,6 +496,12 @@ public class TCPConnection extends AbstractConnection implements PacketSource {
         // TODO update only when necessary
         updateAcknowledgementNumber(packetForClient);
         return packetForClient;
+    }
+
+    @Override
+    public IPv6Packet getIpv6() {
+        // TODO
+        return null;
     }
 
     private void updateAcknowledgementNumber(IPv4Packet packet) {

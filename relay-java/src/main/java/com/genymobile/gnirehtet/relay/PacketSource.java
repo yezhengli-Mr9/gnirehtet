@@ -31,5 +31,7 @@ public interface PacketSource {
 
     IPv4Packet get();
 
+    IPv6Packet getIpv6();
+
     void next();
 }
